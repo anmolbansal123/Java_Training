@@ -47,10 +47,10 @@ public class EmployeeDaoImplForList implements IemployeeDao {
 	}
 
 	@Override
-	public Employee SearchEmployee(String kin_id, String email_id) {
+	public Employee SearchEmployee(String kin_id) {
 		// TODO Auto-generated method stub
 		for (Employee e : emp) {
-			if ((e.getKin_id()).equals(kin_id) && (e.getEmail_id()).equals(email_id)) {
+			if ((e.getKin_id()).equals(kin_id) ) {
 				return e;
 			}
 			

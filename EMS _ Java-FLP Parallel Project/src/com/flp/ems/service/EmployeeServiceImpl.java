@@ -30,7 +30,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
 	@Override
 	public void ModifyEmployee(HashMap<String, String> hm) {
-		// TODO Auto-generated method stub	
+		// TODO Auto-generated method stub
 
 	}
 
@@ -42,21 +42,36 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	}
 
 	@Override
-	public void SearchEmployee(HashMap<String, String> hm) {
+	public HashMap<String, String> SearchEmployee(HashMap<String, String> hm) {
 		// TODO Auto-generated method stub
 
 		String kin_id = hm.get("kin_id");
-		String email_id = hm.get("email_id");
 
-		Employee e = EDI.SearchEmployee(kin_id, email_id);
+		Employee e = EDI.SearchEmployee(kin_id);
+
+		HashMap<String, String> hm1 = new HashMap<String, String>();
+
 		if (e != null) {
-			System.out.println("Employee Found");
-			System.out.println(
-					"kin_id    Employee Name    Employee Department    Employee Role    email_id    MobileNumber");
-			System.out.println(e.getKin_id() + " " + e.getName() + " " + e.getDepartment() + " " + e.getRole() + " "
-					+ e.getEmail_id() + " " + e.getPhone_no());
+			/*
+			 * System.out.println("Employee Found"); System.out.println(
+			 * "kin_id    Employee Name    Employee Department    Employee Role    email_id    MobileNumber"
+			 * ); System.out.println(e.getKin_id() + " " + e.getName() + " " +
+			 * e.getDepartment() + " " + e.getRole() + " " + e.getEmail_id() +
+			 * " " + e.getPhone_no());
+			 */
+			hm1.put("flag", "true");
+			hm1.put("kin_id", e.getKin_id());
+			hm1.put("Name", e.getName());
+			hm1.put("Department", e.getDepartment());
+			hm1.put("Role", e.getRole());
+			hm1.put("email_id", e.getEmail_id());
+			hm1.put("Mobile", e.getPhone_no());
+			return hm1;
+
 		} else {
-			System.out.println("Employee Not Present in Directory");
+			// System.out.println("Employee Not Present in Directory");
+			hm1.put("flag", "false");
+			return hm1;
 		}
 
 	}
@@ -65,17 +80,15 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	public void getAllEmployee() {
 		// TODO Auto-generated method stub
 		ArrayList<Employee> e = EDI.getAllEmployee();
-		if(e.isEmpty())
-		{
+		if (e.isEmpty()) {
 			System.out.println("NO EMPLOYEE PRESENT");
-		}
-		else {
-		System.out.println("kin_id   Name    Department     Role     Mobile");
-		
-		for (Employee e1 : e) {
-			System.out.println(e1.getKin_id() + " " + e1.getName() + " " + e1.getDepartment() + " " + e1.getRole() + " "
-					+ e1.getPhone_no());
-		}
+		} else {
+			System.out.println("kin_id   Name    Department     Role     Mobile");
+
+			for (Employee e1 : e) {
+				System.out.println(e1.getKin_id() + " " + e1.getName() + " " + e1.getDepartment() + " " + e1.getRole()
+						+ " " + e1.getPhone_no());
+			}
 		}
 	}
 

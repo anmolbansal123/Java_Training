@@ -11,7 +11,7 @@ public interface IemployeeDao {
 
 	public void RemoveEmployee(String kin_id);
 
-	public Employee SearchEmployee(String kin_id,String email_id);
+	public Employee SearchEmployee(String kin_id);
 
 	public ArrayList<Employee> getAllEmployee();
 }

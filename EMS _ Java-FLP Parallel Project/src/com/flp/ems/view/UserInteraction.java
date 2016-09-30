@@ -111,110 +111,118 @@ public class UserInteraction {
 	}
 
 	void ModifyEmployee() throws IOException {
-
+		HashMap<String, String> hm = new HashMap<String, String>();
 		System.out.println("Enter kin_id for Employee whose info needs to be modified");
 		String kin_id = ob.readLine();
-		System.out.println("Enter number of fields That you want to change");
-		int n = Integer.parseInt(ob.readLine());
-		HashMap<String, String> hm = new HashMap<String, String>();
+		hm.put("kin_id", kin_id);
+		HashMap hm1 = ESI.SearchEmployee(hm);
 
-		for (int i = 1; i <= n; i++) {
+		if ((hm1.get("flag")).equals("true")) {
 
-			System.out.println("Choose From the Given Fields");
-			System.out.println("1. Department");
-			System.out.println("2. Role");
-			System.out.println("3. Mobile");
-			System.out.println("4. DOB");
-			System.out.println("5. Address");
+			System.out.println("Enter number of fields That you want to change");
+			int n = Integer.parseInt(ob.readLine());
 
-			int ch = Integer.parseInt(ob.readLine());
+			for (int i = 1; i <= n; i++) {
 
-			switch (ch) {
+				System.out.println("Choose From the Given Fields");
+				System.out.println("1. Department");
+				System.out.println("2. Role");
+				System.out.println("3. Mobile");
+				System.out.println("4. DOB");
+				System.out.println("5. Address");
 
-			case 1:
-				
-				ArrayList<String> dept = new ArrayList<String>();
-				dept = Department.getDepartment();
-				System.out.println("Select a Department");
-				int counter = 0;
-				for (String s : dept) {
-					counter++;
-					System.out.println(counter + ". " + s);
+				int ch = Integer.parseInt(ob.readLine());
+
+				switch (ch) {
+
+				case 1:
+
+					ArrayList<String> dept = new ArrayList<String>();
+					dept = Department.getDepartment();
+					System.out.println("Select a Department");
+					int counter = 0;
+					for (String s : dept) {
+						counter++;
+						System.out.println(counter + ". " + s);
+					}
+
+					int ch1 = Integer.parseInt(ob.readLine());
+					while (true) {
+						if (ch1 < 1 || ch1 > dept.size()) {
+							System.out.println("Please Enter a valid input");
+							ch1 = Integer.parseInt(ob.readLine());
+						} else {
+							hm.put("Department", dept.get(--ch1));
+							break;
+						}
+					}
+					break;
+
+				case 2:
+
+					ArrayList<String> role = new ArrayList<String>();
+					role = Role.getRole();
+					System.out.println("Select a Role");
+					counter = 0;
+					for (String s1 : role) {
+						counter++;
+						System.out.println(counter + ". " + s1);
+					}
+
+					int ch2 = Integer.parseInt(ob.readLine());
+					while (true) {
+						if (ch2 < 1 || ch2 > role.size()) {
+							System.out.println("Please Enter a valid input");
+							ch2 = Integer.parseInt(ob.readLine());
+						} else {
+							hm.put("Role", role.get(--ch2));
+							break;
+						}
+					}
+					break;
+
+				case 3:
+					System.out.println("Enter Mobile Number");
+					do {
+						String Mobile = ob.readLine();
+						if (Validate.ValidatePhone_no()) {
+							hm.put("Mobile", Mobile);
+						}
+
+						else {
+							System.out.println("Please Enter a Valid Number:");
+						}
+					} while (!Validate.ValidatePhone_no());
+
+					break;
+
+				case 4:
+					System.out.println("Enter Date of Birth:");
+					do {
+						String DOB = ob.readLine();
+						if (Validate.Validatedate()) {
+							hm.put("DOB", DOB);
+						} else {
+							System.out.println("Please Enter a Valid Date:");
+						}
+					} while (!Validate.Validatedate());
+					break;
+
+				case 5:
+					System.out.println("Enter Address:");
+					String Address = ob.readLine();
+					hm.put("Address", Address);
+
 				}
-
-				int ch1 = Integer.parseInt(ob.readLine());
-				while (true) {
-					if (ch1< 1 || ch1 > dept.size()) {
-						System.out.println("Please Enter a valid input");
-						ch1 = Integer.parseInt(ob.readLine());
-					} else {
-						hm.put("Department", dept.get(--ch1));
-						break;
-					}
-				}
-				break;
-
-			case 2:
-				
-				ArrayList<String> role = new ArrayList<String>();
-				role = Role.getRole();
-				System.out.println("Select a Role");
-				counter = 0;
-				for (String s1 : role) {
-					counter++;
-					System.out.println(counter + ". " + s1);
-				}
-
-				int ch2 = Integer.parseInt(ob.readLine());
-				while (true) {
-					if (ch2 < 1 || ch2 > role.size()) {
-						System.out.println("Please Enter a valid input");
-						ch2 = Integer.parseInt(ob.readLine());
-					} else {
-						hm.put("Role", role.get(--ch2));
-						break;
-					}
-				}
-				break;
-
-			case 3:
-				System.out.println("Enter Mobile Number");
-				do {
-					String Mobile = ob.readLine();
-					if (Validate.ValidatePhone_no()) {
-						hm.put("Mobile", Mobile);
-					}
-
-					else {
-						System.out.println("Please Enter a Valid Number:");
-					}
-				} while (!Validate.ValidatePhone_no());
-
-				break;
-
-			case 4:
-				System.out.println("Enter Date of Birth:");
-				do {
-					String DOB = ob.readLine();
-					if (Validate.Validatedate()) {
-						hm.put("DOB", DOB);
-					} else {
-						System.out.println("Please Enter a Valid Date:");
-					}
-				} while (!Validate.Validatedate());
-				break;
-
-			case 5:
-				System.out.println("Enter Address:");
-				String Address = ob.readLine();
-				hm.put("Address", Address);
 
 			}
 
+			ESI.ModifyEmployee(hm);
 		}
 		
-		
-
+		else{
+			System.out.println("Enter a valid kin_id");
+		}
 	}
 
 	void RemoveEmployee() throws IOException {
