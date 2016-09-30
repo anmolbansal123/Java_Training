@@ -10,5 +10,5 @@ public interface IEmployeeService {
 
 	public void SearchEmployee(HashMap<String,String> hm);
 
-	public void getAllEmployee(HashMap<String,String> hm);
+	public void getAllEmployee();
 }

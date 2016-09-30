@@ -22,6 +22,16 @@ public class Employee {
 			return false;
 		}
 	}
+	
+	
+	@Override
+	public int hashCode()
+	{
+		long n = Long.parseLong(phone_no);
+		int t = (int)n%10;
+		return t;
+		
+	}
 
 	public Employee(String name, String phone_no, String address, String dOB,
 			String dOJ, String department, String role, String project) {
